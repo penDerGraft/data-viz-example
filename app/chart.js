@@ -19,7 +19,7 @@ var xAxis = d3.svg.axis()
 var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left")
-    .ticks(20);
+    .ticks(30);
 
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -27,7 +27,7 @@ var svg = d3.select("body").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("data/data.csv", type, function(error, data) {
+d3.csv("data/data.csv", function(error, data) {
     if (error) throw error;
 
     x.domain(data.map(function(d) { return d.id; }));
@@ -65,10 +65,7 @@ d3.csv("data/data.csv", type, function(error, data) {
 
 });
 
-function type(d) {
-    d.votes = +d.votes;
-    return d;
-}
+
 
 
 
