@@ -1,0 +1,17 @@
+{
+  "name": "swipensave",
+  "version": "1.0.0",
+  "authors": [
+    "Brent Pendergraft",
+    "Norman Lancaster",
+    "Denis Rugira",
+    "Larry Kraus",
+    "Billy Bissic"
+  ],
+  "description": "Swipe-N-Save Data Visualization",
+  "main": "app/index.html",
+  "license": "LicenseRef-LICENSE",
+  "dependencies": {
+    "d3": "~3.5.6"
+  }
+}

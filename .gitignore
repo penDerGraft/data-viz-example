@@ -1,0 +1,8 @@
+# Library directories
+node_modules
+app/bower_components
+
+# WebStorm specific files
+.idea/
+
+.DS_Store
