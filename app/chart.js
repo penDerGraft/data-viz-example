@@ -21,11 +21,21 @@ var yAxis = d3.svg.axis()
     .orient("left")
     .ticks(30);
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#chart").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var tip = d3.tip()
+    .attr('class', 'd3-tip')
+    .offset([-25, 0])
+    .html(function(d) {
+        return "<strong>Item: </strong> <span style='color:red'>" + d.name + "</span><br>" +
+               "<strong>Total Votes: </strong> <span style='color:red'>" + d.votes + "</span><br>";
+    });
+
+svg.call(tip);
 
 d3.csv("data/data.csv", function(error, data) {
     if (error) throw error;
@@ -57,13 +67,41 @@ d3.csv("data/data.csv", function(error, data) {
     svg.selectAll(".bar")
         .data(data)
         .enter().append("rect")
-        .attr("class", "bar")
+        .attr("class", function(d, i) { return d.soldInStore === 'true' ? 'sold-in-store' : 'not-sold-in-store' })
         .attr("x", function(d) { return x(d.id); })
         .attr("width", x.rangeBand())
         .attr("y", function(d) { return y(d.votes); })
-        .attr("height", function(d) { return height - y(d.votes); });
+        .attr("height", function(d) { return height - y(d.votes); })
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide);
+
+    var legend = svg.selectAll('.legend')
+        .data(['Sold in Store', 'Not Sold in Store'])
+        .enter().append('g')
+        .attr("class", "legend")
+        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+    legend.append("rect")
+        .attr("x", width - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .attr("class", function(d, i) { return i % 2 === 0 ? 'sold-in-store': 'not-sold-in-store'});
+
+    legend.append("text")
+        .attr("x", width - 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function(d) { return d; });
 
 });
+
+
+//if(d.soldInStore) {
+//    return color[0];
+//} else {
+//    return color[1];
+//}
 
 
 

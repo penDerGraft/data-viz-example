@@ -1,9 +1,33 @@
-.bar {
+
+.border-style {
+
+}
+
+#container-override {
+    margin-top: 100px;
+}
+
+#chart {
+    width: 980px;
+    margin: auto;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+}
+
+.sold-in-store:hover {
+    fill: #0A57B4;
+}
+
+.sold-in-store {
     fill: steelblue;
 }
 
-.bar:hover {
+.not-sold-in-store {
     fill: brown;
+}
+
+.not-sold-in-store:hover {
+    fill: #A50200;
 }
 
 .axis {
@@ -19,4 +43,29 @@
 
 .x.axis path {
     display: none;
+}
+
+.d3-tip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+    margin-bottom: 10px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 20px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25BC";
+    position: absolute;
+    bottom: -17px;
+    left: 50%;
+    margin-left: -10px;
 }
