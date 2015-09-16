@@ -7,13 +7,50 @@
     <link rel="stylesheet" href="style.css"/>
   </head>
   <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default" id="navbar-override">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="" href="#">
-            <img alt="Brand" src="...">
+          <a href="#">
+            <img alt="Brand" id="brand" src="img/logo-walmart.png">
           </a>
         </div>
+        <form class="navbar-form">
+          <div class="form-group form-override">
+            <input type="text" class="form-control" placeholder="Zip Code or Store No.">
+          </div>
+          <div class="form-group form-override">
+            <label for="select-distance">Distance:</label>
+            <select class="form-control" id="select-distance">
+              <option>15 miles</option>
+              <option>30 miles</option>
+              <option>50 miles</option>
+              <option>100 miles</option>
+              <option>500 miles</option>
+            </select>
+          </div>
+          <div class="form-group form-override">
+            <label for="select-category">Category:</label>
+            <select class="form-control" id="select-category">
+              <option>Men's Apparel</option>
+              <option>Electronics</option>
+              <option>Kitchen</option>
+              <option>Women's Apparel</option>
+              <option>Outdoor</option>
+            </select>
+          </div>
+          <div class="form-group form-override">
+            <label for="select-period">Within:</label>
+            <select class="form-control" id="select-period">
+              <option>1 Day</option>
+              <option>1 Week</option>
+              <option>1 Months</option>
+              <option>2 Months</option>
+              <option>6 Months</option>
+              <option>1 Year</option>
+            </select>
+          </div>
+          <button class="btn btn-default form-override">Filter</button>
+        </form>
       </div>
     </nav>
     <div class="container border-style" id="container-override">

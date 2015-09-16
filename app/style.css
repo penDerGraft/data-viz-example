@@ -1,14 +1,25 @@
 
-.border-style {
+#navbar-override {
+    background-color: #0072CE;
+    color: #FFF;
+    font-size: 1.2em;
+}
 
+.form-override {
+    margin: 5px 10px 0 0;
+    text-align: center;
 }
 
 #container-override {
-    margin-top: 100px;
+    margin-top: 60px;
+}
+
+#brand {
+    margin-right: 30px;
 }
 
 #chart {
-    width: 980px;
+    width: 970px;
     margin: auto;
     padding: 10px 15px;
     border: 1px solid #ccc;

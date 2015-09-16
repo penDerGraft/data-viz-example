@@ -31,8 +31,8 @@ var tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([-25, 0])
     .html(function(d) {
-        return "<strong>Item: </strong> <span style='color:red'>" + d.name + "</span><br>" +
-               "<strong>Total Votes: </strong> <span style='color:red'>" + d.votes + "</span><br>";
+        return "<strong>Item: </strong> <span>" + d.name + "</span><br>" +
+               "<strong>Total Votes: </strong> <span>" + d.votes + "</span><br>";
     });
 
 svg.call(tip);
