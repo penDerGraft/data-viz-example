@@ -27,74 +27,105 @@ var svg = d3.select("#chart").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var tip = d3.tip()
-    .attr('class', 'd3-tip')
-    .offset([-25, 0])
-    .html(function(d) {
-        return "<strong>Item: </strong> <span>" + d.name + "</span><br>" +
-               "<strong>Total Votes: </strong> <span>" + d.votes + "</span><br>";
+var clickToggle = true;
+
+var legend = svg.selectAll('.legend')
+    .data(['Sold in Store', 'Not Sold in Store'])
+    .enter().append('g')
+    .attr("class", "legend")
+    .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+legend.append("rect")
+    .attr("x", width - 18)
+    .attr("width", 18)
+    .attr("height", 18)
+    .attr("class", function(d, i) { return i % 2 === 0 ? 'sold-in-store': 'not-sold-in-store'});
+
+legend.append("text")
+    .attr("x", width - 24)
+    .attr("y", 9)
+    .attr("dy", ".35em")
+    .style("text-anchor", "end")
+    .text(function(d) { return d; });
+
+
+function updateData(pathToData) {
+    d3.csv(pathToData, function(error, data) {
+        if (error) throw error;
+
+        x.domain(data.map(function(d) { return d.id; }));
+        y.domain([0, d3.max(data, function(d) { return d.votes; })]);
+
+        svg.select(".y.axis").remove();
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+            .append("text")
+            .attr("x", 30)
+            .attr('dx', ".71em")
+            .attr('y', 15)
+            .style("text-anchor", "end")
+            .text("Item Number");
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "right")
+            .text("Votes");
+
+
+        var bar = svg.selectAll(".bar")
+            .data(data, function(d) { return d.id; });
+
+        bar.enter().append("rect")
+            .attr("class", "bar")
+            .attr("class", function(d, i) { return d.soldInStore === 'true' ? 'sold-in-store' : 'not-sold-in-store' })
+            .attr("x", function(d) { return x(d.id); })
+            .attr("width", x.rangeBand())
+            .attr("y", function(d) { return y(d.votes); })
+            .attr("height", function(d) { return height - y(d.votes); })
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide);
+
+        bar.exit().remove();
+
+        bar
+            .transition()
+            .attr("y", function(d) { return y(d.votes); })
+            .attr("height", function(d) { return height - y(d.votes); });
+
+
+        var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-25, 0])
+            .html(function(d) {
+                return "<strong>Item: </strong> <span>" + d.name + "</span><br>" +
+                    "<strong>Total Votes: </strong> <span>" + d.votes + "</span><br>";
+            });
+
+        svg.call(tip);
     });
 
-svg.call(tip);
+}
 
-d3.csv("data/data.csv", function(error, data) {
-    if (error) throw error;
-
-    x.domain(data.map(function(d) { return d.id; }));
-    y.domain([0, d3.max(data, function(d) { return d.votes; })]);
-
-    svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis)
-        .append("text")
-        .attr("x", 30)
-        .attr('dx', ".71em")
-        .attr('y', 15)
-        .style("text-anchor", "end")
-        .text("Item Number");
-
-    svg.append("g")
-        .attr("class", "y axis")
-        .call(yAxis)
-        .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        .style("text-anchor", "right")
-        .text("Votes");
-
-    svg.selectAll(".bar")
-        .data(data)
-        .enter().append("rect")
-        .attr("class", function(d, i) { return d.soldInStore === 'true' ? 'sold-in-store' : 'not-sold-in-store' })
-        .attr("x", function(d) { return x(d.id); })
-        .attr("width", x.rangeBand())
-        .attr("y", function(d) { return y(d.votes); })
-        .attr("height", function(d) { return height - y(d.votes); })
-        .on('mouseover', tip.show)
-        .on('mouseout', tip.hide);
-
-    var legend = svg.selectAll('.legend')
-        .data(['Sold in Store', 'Not Sold in Store'])
-        .enter().append('g')
-        .attr("class", "legend")
-        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-    legend.append("rect")
-        .attr("x", width - 18)
-        .attr("width", 18)
-        .attr("height", 18)
-        .attr("class", function(d, i) { return i % 2 === 0 ? 'sold-in-store': 'not-sold-in-store'});
-
-    legend.append("text")
-        .attr("x", width - 24)
-        .attr("y", 9)
-        .attr("dy", ".35em")
-        .style("text-anchor", "end")
-        .text(function(d) { return d; });
-
-});
+updateData('data/data.csv');
+d3.select("#filterBtn")
+    .on('click', function() {
+        d3.event.preventDefault();
+        if(clickToggle) {
+            updateData('data/data2.csv');
+            clickToggle = false;
+        } else {
+            updateData('data/data.csv');
+            clickToggle = true;
+        }
+    });
 
 
 //if(d.soldInStore) {
