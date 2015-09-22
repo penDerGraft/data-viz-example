@@ -7,4 +7,10 @@ id,votes,soldInStore,name
 15,256,false,Wrangler Men's Legacy Cargo Pants
 16,830,true,Some kind of pants
 17,524,false,Some other kind of pants
-18,224,false,Some other kind of pants
+18,224,true,Some other kind of pants
+20,540,false,Dummy Data
+21,720,true,Dummy Data
+22,480,true,Data
+23,720,true,Flame Resistant 5-Pocket Relaxed Jean
+24,270,true,Utility Jeans
+25,656,false,Legacy Cargo Pants

@@ -12,7 +12,8 @@
   "main": "app/index.html",
   "license": "LicenseRef-LICENSE",
   "dependencies": {
+    "bootstrap": "~3.3.5",
     "d3": "~3.5.6",
-    "bootstrap": "~3.3.5"
+    "gulp": "~3.9.0"
   }
 }

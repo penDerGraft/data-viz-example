@@ -11,30 +11,23 @@
 }
 
 #container-override {
-    margin-top: 60px;
+    margin: 20px;
 }
 
 #brand {
     margin-right: 30px;
 }
 
-#chart {
-    width: 970px;
-    margin: auto;
+#chart1, 
+#chart2 {
+    width: 710px;
+    margin: 0 5px;
     padding: 10px 15px;
     border: 1px solid #ccc;
 }
 
 .sold-in-store:hover {
     fill: #0A57B4;
-}
-
-.sold-in-store {
-    fill: steelblue;
-}
-
-.not-sold-in-store {
-    fill: brown;
 }
 
 .not-sold-in-store:hover {
@@ -52,9 +45,9 @@
     shape-rendering: crispEdges;
 }
 
-.x.axis path {
+/*.x.axis path {
     display: none;
-}
+}*/
 
 .d3-tip {
     line-height: 1;
