@@ -4,7 +4,7 @@
 
 function createChart(id, pathToData1, pathToData2) {
     var margin = {top: 40, right: 20, bottom: 30, left: 40},
-        width = 700 - margin.left - margin.right,
+        width = 750 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
     var x = d3.scale.ordinal()
@@ -113,7 +113,8 @@ function createChart(id, pathToData1, pathToData2) {
                 .attr("height", function(d) { return height - y(d.votes); })
                 .attr("x", function(d) { return x(d.id); })
                 .attr("width", x.rangeBand())
-                .style('fill', function(d) { return d.soldInStore === 'true' ? 'steelblue' : 'brown'})            
+                .attr('class', function(d) { return d.soldInStore === 'true' ? 'sold-in-store bar' : 'not-sold-in-store bar'})
+                // .style('fill', function(d) { return d.soldInStore === 'true' ? 'steelblue' : 'brown'})
 
             bars.exit().remove();
 
