@@ -2,7 +2,7 @@
  * Created by bpender on 9/14/2015.
  */
 
-function createChart(id, pathToData1, pathToData2) {
+function createChart(id) {
     var margin = {top: 40, right: 20, bottom: 30, left: 40},
         width = 750 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
@@ -31,7 +31,7 @@ function createChart(id, pathToData1, pathToData2) {
 
 
 
-    function updateData(pathToData) {
+    return function updateData(pathToData) {
         d3.csv(pathToData, function(error, data) {
             if (error) throw error;
 
@@ -121,26 +121,31 @@ function createChart(id, pathToData1, pathToData2) {
         });
 
     }
-
-    updateData(pathToData1);    
 }
 
 var clickToggle = true;
+var chart1 = createChart('#chart1');
+var chart2 = createChart('#chart2');
+
+chart1('data/data.csv');
+chart2('data/data.csv');
 
 d3.select("#filterBtn")
         .on('click', function() {
             d3.event.preventDefault();
             if(clickToggle) {
-                updateData('data/data2.csv');
+                chart1('data/data2.csv');
+                chart2('data/data2.csv');
                 clickToggle = false;
             } else {
-                updateData('data/data.csv');
+                chart1('data/data.csv');
+                chart2('data/data.csv');
                 clickToggle = true;
             }
         });
 
-createChart('#chart1', 'data/data.csv', 'data/data2.csv');
-createChart('#chart2', 'data/data.csv', 'data/data2.csv');
+//createChart('#chart1', 'data/data.csv', 'data/data2.csv');
+//createChart('#chart2', 'data/data.csv', 'data/data2.csv');
 
 
 

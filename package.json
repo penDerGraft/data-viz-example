@@ -2,15 +2,15 @@
   "name": "swipensaveDataViz",
   "version": "1.0.0",
   "description": "Swipe-N-Save-dataViz",
-  "scripts": {
-    "postinstall": "bower install"
-  },
   "dependencies": {
-    "bower": "^1.5.2"
+    "bower": "^1.5.3"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-webserver": "^0.9.1",
     "gulp-connect": "^2.2.0"
+  },
+  "scripts": {
+    "postinstall": "bower install"
   }
 }
