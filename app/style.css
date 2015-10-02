@@ -1,3 +1,6 @@
+body {
+    overflow-x: hidden;
+}
 
 #navbar-override {
     background-color: #0072CE;
@@ -10,8 +13,8 @@
     text-align: center;
 }
 
-#container-override {
-    margin: 20px;
+#row-override {
+    margin-top: 50px;
 }
 
 #brand {
@@ -84,4 +87,15 @@
     bottom: -17px;
     left: 50%;
     margin-left: -10px;
+}
+
+.specs {
+    color: #6C93B4;
+}
+
+.imgSpecs {
+    height: 175px;
+    display: block;
+    margin: 5px auto;
+    border: 2px solid #6C93B4;
 }

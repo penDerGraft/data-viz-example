@@ -1,9 +1,9 @@
-id,votes,soldInStore,name
-1,500,true,Faded Glory Men's Relaxed Jeans
-2,300,true,Wrangler Men's Relaxed Straight Fit Jeans
-3,900,false,Wrangler Men's Loose Straight Jeans
-4,100,true,Men's HRC 2 Flame Resistant 5-Pocket Relaxed Jean
-5,600,false,Dickies Men's Utility Jeans
+id,votes,soldInStore,name,imgURL
+1,500,true,Faded Glory Men's Relaxed Jeans,img/FadedGloryMensRelaxedJeans.png
+2,300,true,Wrangler Men's Relaxed Straight Fit Jeans,img/WranglerMensRelaxedStraightFitJeans.png
+3,900,false,Wrangler Men's Loose Straight Jeans,img/WranglerJeansCoMensLooseStraightJeans.png
+4,100,true,Men's HRC 2 Flame Resistant 5-Pocket Relaxed Jean,img/WallsFRMensHRC2FlameResistant5PocketRelaxedJean.png
+5,600,false,Dickies Men's Utility Jeans,img/DickiesMensUtilityJeans.png
 6,576,false,Wrangler Men's Legacy Cargo Pants
 7,430,true,Some kind of pants
 8,224,false,Some other kind of pants

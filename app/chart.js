@@ -29,8 +29,6 @@ function createChart(id) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-
-
     return function updateData(pathToData) {
         d3.csv(pathToData, function(error, data) {
             if (error) throw error;
@@ -91,8 +89,9 @@ function createChart(id) {
                     .attr('class', 'd3-tip')
                     .offset([-25, 0])
                     .html(function(d) {
-                        return "<strong>Item: </strong> <span>" + d.name + "</span><br>" +
-                            "<strong>Total Votes: </strong> <span>" + d.votes + "</span><br>";
+                        return "<strong>Item: </strong> <span class='specs'>" + d.name + "</span><br>" +
+                            "<strong>Total Votes: </strong> <span class='specs'>" + d.votes + "</span><br>" +
+                            "<img class='imgSpecs' src=" + d.imgURL + ">";
                     });
 
             svg.call(tip);
