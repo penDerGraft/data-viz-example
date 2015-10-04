@@ -4,7 +4,7 @@
 
 function createChart(id) {
     var margin = {top: 40, right: 20, bottom: 30, left: 40},
-        width = 750 - margin.left - margin.right,
+        width = 600 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
     var x = d3.scale.ordinal()
@@ -26,15 +26,16 @@ function createChart(id) {
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");   
 
 
     return function updateData(pathToData) {
         d3.csv(pathToData, function(error, data) {
             if (error) throw error;
+            var dataset = data.sort(function (a,b) {return d3.descending(a.votes, b.votes); });
 
-            x.domain(data.map(function(d) { return d.id; }));
-            y.domain([0, d3.max(data, function(d) { return d.votes; })]);
+            x.domain(dataset.map(function(d) { return d.id; }));
+            y.domain([0, d3.max(dataset, function(d) { return d.votes; })]);
 
             // axes
 
@@ -96,31 +97,37 @@ function createChart(id) {
 
             svg.call(tip);
 
-            // data binding
-
-            var bars = svg.selectAll(".bar")
-                    .data(data)
-
-            bars.enter().append("rect")
-                .classed('bar', true)
-                .on('mouseover', tip.show)
-                .on('mouseout', tip.hide);
-
-            bars.transition()
-                .duration(1000)            
-                .attr("y", function(d) { return y(d.votes); })
-                .attr("height", function(d) { return height - y(d.votes); })
-                .attr("x", function(d) { return x(d.id); })
-                .attr("width", x.rangeBand())
-                .attr('class', function(d) { return d.soldInStore === 'true' ? 'sold-in-store bar' : 'not-sold-in-store bar'})
-                // .style('fill', function(d) { return d.soldInStore === 'true' ? 'steelblue' : 'brown'})
-
-            bars.exit().remove();
+            render(data, tip);
 
         });
 
     }
+
+    function render(data, tip) {
+
+        // data binding    
+        var bars = svg.selectAll(".bar")
+            .data(data);
+
+        bars.enter().append("rect")
+            .classed('bar', true)
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide);
+
+        bars.transition()
+            .duration(1000)            
+            .attr("y", function(d) { return y(d.votes); })
+            .attr("height", function(d) { return height - y(d.votes); })
+            .attr("x", function(d) { return x(d.id); })
+            .attr("width", x.rangeBand())
+            .attr('class', function(d) { return d.soldInStore === 'true' ? 'sold-in-store bar' : 'not-sold-in-store bar'})
+            // .style('fill', function(d) { return d.soldInStore === 'true' ? 'steelblue' : 'brown'})
+
+        bars.exit().remove();
+    }
+
 }
+
 
 var clickToggle = true;
 var chart1 = createChart('#chart1');
